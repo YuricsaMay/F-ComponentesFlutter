@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomePageTemp extends StatelessWidget {
   //conss HomePageTemp({Key? key}) : super(key: key);
-
+final opciones=['Uno', 'Dos', 'Tres', 'Cuatro', 'Cinco'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,21 +10,41 @@ class HomePageTemp extends StatelessWidget {
         title: Text('Componentes Temp'),
       ),
       body:ListView(
-      children:<Widget>[
-        ListTile(
-          title:Text('ListTile Title'),
-      ),
-      Divider(),
-       ListTile(
-          title:Text('ListTile Title'),
-      ),
-      Divider(),
-       ListTile(
-         
-          title:Text('ListTile Title'),
-      ),
-      ]
+      children: _crearItemsCorta()
       ),
     );
+  }
+  
+
+/*List<Widget> _crearItems() {
+
+List<Widget> lista= new List<Widget>();
+    //final lista = new List<Widget>();
+    for (String opt in opciones) {
+      final tempWidget = ListTile(title: Text(opt)
+      );
+      lista.add(tempWidget);
+      lista.add(Divider());
+    }
+    return lista;
+}*/ 
+  
+  List<Widget> _crearItemsCorta(){
+return opciones.map ( (item){
+  return Column(
+    children:<Widget> [
+      ListTile(
+        title:Text(item + '!'),
+        subtitle:Text('Cualquier cosa'),
+        leading:Icon (Icons.account_balance_wallet),
+        trailing:Icon(Icons.keyboard_arrow_right),
+        onTap: (){},
+      ),
+      Divider()
+    ],
+    
+  );
+  
+}).toList();
   }
 }
