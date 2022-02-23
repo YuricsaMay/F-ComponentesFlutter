@@ -11,7 +11,8 @@ class _InputPageState extends State<InputPage> {
 String _nombre='';
   String  _email='';
 String _fecha='';
-
+String _opcionesSeleccionada='Volar';
+List :poderes=['Volar', 'Rayos X','Super Aliento', 'Super Fuerza'];
 TextEditingController _inputFieldDateController=new TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,8 @@ TextEditingController _inputFieldDateController=new TextEditingController();
           _crearPassword(),
            Divider(),
           _crearFecha(context),
+          Divider(),
+          _crearDropdown(),
           Divider(),
           _crearPersona(),
           
@@ -117,7 +120,7 @@ TextEditingController _inputFieldDateController=new TextEditingController();
     
         }
 
- Future<void> _selectDate(BuildContext context) async {
+    Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: new DateTime.now(),
@@ -137,10 +140,44 @@ TextEditingController _inputFieldDateController=new TextEditingController();
               });
             }
         }
-
+        List<DropdownMenuItem<String>>getOpcionesDropdown(){
+          List<DropdownMenuItem<String>>lista=new List();
+          _poderes.forEach(poder){
+            lista.add(DrpdownMenuItem(
+              child:Text(poder),
+              value:poder,
+            ));
+          };
+          return lista;
+        }
+        Widget _crearDropdown(){
+            return DropdownButton(
+          value:_opcionSelecciona,
+            items:getOpcionesDropdown(),
+            onChanged:(opt){
+setState((){
+  opcionSeleccionada=opt;
+});
+            };
+          );
+        }
         
 
-
+return Row(
+  children:<Widget>[
+    Icon(Icons.select_all),
+    SizedBox(width:30.0),
+    DropdownButton(
+      value:_opcionSeleccionada,
+      items:getOpcionesDropdown(),
+      onChanged:(opt){
+        setState((){
+          _opcionSeleccionada=opt;
+        });
+      },
+    )
+  ],
+);
 
 
 
@@ -150,7 +187,7 @@ TextEditingController _inputFieldDateController=new TextEditingController();
       return ListTile(
         title:Text('Nombre es: $_nombre'),
         subtitle: Text('Email: $_email'),
-      
+      leading: Text (_opcionSeleccionada),
       );
 
     }
