@@ -8,7 +8,7 @@ import 'package:componentes/src/pages/input_page.dart';
 import 'package:componentes/src/pages/slider_page.dart';
 
 
-Map<String,WidgetBuilder>getApplicationRoutes(){
+Map<String,WidgetBuilder>getApplicationRoutes(){ 
 return<String, WidgetBuilder>{
         '/' : (BuildContext context)=>HomePage(),
         'alert' : (BuildContext context)=> AlertPage(),
