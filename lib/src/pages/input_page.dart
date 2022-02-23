@@ -11,9 +11,11 @@ class _InputPageState extends State<InputPage> {
 String _nombre='';
   String  _email='';
 String _fecha='';
-String _opcionesSeleccionada='Volar';
-List :poderes=['Volar', 'Rayos X','Super Aliento', 'Super Fuerza'];
+String _opcionSeleccionada='Volar';
+List <String> _poderes=['Volar', 'Rayos X','Super Aliento', 'Super Fuerza'];
+
 TextEditingController _inputFieldDateController=new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,46 +142,40 @@ TextEditingController _inputFieldDateController=new TextEditingController();
               });
             }
         }
+       
+       
         List<DropdownMenuItem<String>>getOpcionesDropdown(){
-          List<DropdownMenuItem<String>>lista=new List();
-          _poderes.forEach(poder){
-            lista.add(DrpdownMenuItem(
+          
+          List<DropdownMenuItem<String>> lista= [];
+          _poderes.forEach((poder){
+            lista.add(DropdownMenuItem(
               child:Text(poder),
               value:poder,
             ));
-          };
+          });
           return lista;
         }
-        Widget _crearDropdown(){
-            return DropdownButton(
-          value:_opcionSelecciona,
-            items:getOpcionesDropdown(),
-            onChanged:(opt){
-setState((){
-  opcionSeleccionada=opt;
-});
-            };
-          );
-        }
-        
+        Widget _crearDropdown(){  
 
 return Row(
   children:<Widget>[
     Icon(Icons.select_all),
     SizedBox(width:30.0),
+    Expanded(child:
     DropdownButton(
       value:_opcionSeleccionada,
       items:getOpcionesDropdown(),
       onChanged:(opt){
         setState((){
-          _opcionSeleccionada=opt;
+           String _opcionSeleccionada='';
         });
       },
+    )
     )
   ],
 );
 
-
+        }
 
 
 
@@ -187,7 +183,7 @@ return Row(
       return ListTile(
         title:Text('Nombre es: $_nombre'),
         subtitle: Text('Email: $_email'),
-      leading: Text (_opcionSeleccionada),
+      trailing: Text (_opcionSeleccionada),
       );
 
     }
